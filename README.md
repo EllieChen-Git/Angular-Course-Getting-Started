@@ -131,6 +131,16 @@ import { ProductListComponent } from './products/product-list.component';
 })
 ```
 
+#### Angular Built-in Directives
+
+Structural Directives (starts with asterisk \*)
+
+- *ngIf (If logic): *ngIf = 'expression'
+  If 'expression' is false, then the element & its children are removed from the DOM
+  If 'expression' is false, then a copy of the element & its children is re-inserted to the DOM
+
+- \*ngFor (For loops): repeat a portion of the DOM tree
+
 ```typescript
 ```
 

@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
   // Decorator: @Component({ })
   selector: 'pm-root', // Directive: custom html tags ('pm-root')
   template: `<div>
-    <h1>Project Managment</h1>
+    <h1>{{ pageTitle }}</h1>
     <pm-products></pm-products>
   </div>`,
 })
 
 // Class
 export class AppComponent {
-  pageTitle: string = 'Page Title';
+  pageTitle: string = 'Project Managment';
   // Proprety: propertyName(camelCAase): dataType = "defaultValue"
 }
