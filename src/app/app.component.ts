@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   selector: 'pm-root', // Directive: custom html tags ('pm-root')
   template: `<div>
     <h1>Project Managment</h1>
-    <p>1st component</p>
+    <pm-products></pm-products>
   </div>`,
 })
 

@@ -51,15 +51,14 @@ PS (Deborah - Angular 8)
 
 - Components
 
-  - view (template)
-  - class (properties - a property defined a data element that associated with the class, methods)
-  - metadata
-
-- Properties
-
-- Metadata
-  - decorator: a function that adds metadata to a class, its members or its method arguments (prefixed with @). a function that passes an object argument
-  - directive: a custom html tag
+  - **Import statement**
+  - **Export class**
+    - **Properties**: a property defined a data element that associated with the class,
+    - **Methods**
+  - **Metadata**
+    - **Decorator**: a function that adds metadata to a class, its members or its method arguments (prefixed with @). a function that passes an object argument
+    - **Directive**: a custom html tag
+    - **Template**: view
 
 src\app\app.component.ts
 
@@ -102,13 +101,34 @@ export class AppComponent {
   </div>`,
 
 // Linked template
-
+  templateUrl: './product-list.component.html', // relative path
 ```
 
-```typescript
-```
+#### Use Components as Directives
+
+1. Create 'Component 2 Template': src\app\products\product-list.component.html
+2. Create 'Component 2 TS': src\app\products\product-list.component.ts (selector: 'pm-producs')
+3. On 'Component 1 TS' & add 'Component 2 Selector' as a directive to 'Component 1 template'
+
+src\app\app.component.ts
 
 ```typescript
+@Component({
+  template: `<div>
+    <h1>Project Managment</h1>
+    <pm-products></pm-products>  //Added here
+  </div>`
+})
+```
+
+4. Declare 'Component 2' on 'Component 1 Module' (remember to also import it on the top)
+
+```typescript
+import { ProductListComponent } from './products/product-list.component';
+
+@NgModule({
+  declarations: [AppComponent, ProductListComponent]
+})
 ```
 
 ```typescript
