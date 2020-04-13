@@ -25,6 +25,14 @@ PS (Deborah - Angular 8)
 - **Course: [Angular: Getting Started](https://app.pluralsight.com/library/courses/angular-2-getting-started-update/table-of-contents) on Pluralsight**
 - **Written Material**:
 - **Topics covered**:
+- **Set up**:
+  - 1. npm i bootstrap font-awesome (install packages doesn't provide access to their stylesheet)
+  - 2. Import the stylesheets in src\styles.css
+
+```typescript
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.min.css';
+```
 
 <!-- ![{screenshot}](./docs/{screenshot}.JPG) -->
 
@@ -81,10 +89,20 @@ export class AppComponent {
 
 ---
 
-```typescript
-```
+#### Template
+
+- Inline template: strings (quotes/backticks)
+- Linked template: templateUrl
 
 ```typescript
+// Inline template
+ template: `<div>
+    <h1>Project Managment</h1>
+    <p>1st component</p>
+  </div>`,
+
+// Linked template
+
 ```
 
 ```typescript
