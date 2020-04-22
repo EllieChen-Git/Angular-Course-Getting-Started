@@ -24,7 +24,7 @@
 - expressive HTML
 - powerful data-binding
 - modular by design
-- built in backend integration
+- built-in backend integration
 
 ---
 
@@ -92,7 +92,7 @@ export class AppComponent {
 #### Use Components as Directives
 
 1. Create 'Component B Template file': src\app\products\product-list.component.html
-2. Create 'Component B TS file': src\app\products\product-list.component.ts (selector: 'pm-producs')
+2. Create 'Component B TS file': src\app\products\product-list.component.ts (selector: 'pm-products')
 3. On 'Component A TS file' & add 'Component B Selector' as a directive to 'Component 1 template'
 
 src\app\app.component.ts
@@ -191,10 +191,10 @@ src\app\products\product-list.component.html
 
 **ngModel**
 
-- [ngModel] - square brackets: property-binding from class to imput in template
-- (ngModel) - parentheses: event-binding sent user data from template to class proerty
+- [ngModel] - square brackets: property-binding from class to input in the template
+- (ngModel) - parentheses: event-binding sent user data from template to class property
 
-1. In order to use ngModel, need to import FormsModule in its parent module.
+1. To use ngModel, need to import FormsModule in its parent module.
 
 src\app\app.module.ts
 
@@ -230,7 +230,17 @@ listFilter: string = 'cart';
 </div>
 ```
 
+---
+
+#### Transforming Data with Pipes
+
+- Modifying data before it is displayed.
+- Pipes can be chained.
+- Some pipes can be passed with parameters.
+
 ```typescript
+<td>{{ product.productCode | lowercase }}</td>
+<td>{{ product.price | currency: 'USD':'symbol':'1.2-2' }}</td>
 ```
 
 ```typescript
@@ -238,7 +248,7 @@ listFilter: string = 'cart';
 
 ©2020 Ellie Chen - All Rights Reserved.
 
-```typescript
+<!-- ```typescript
 ```
 
 ```typescript
@@ -251,4 +261,4 @@ listFilter: string = 'cart';
 ```
 
 ```typescript
-```
+``` -->
