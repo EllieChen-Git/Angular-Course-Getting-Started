@@ -185,13 +185,49 @@ src\app\products\product-list.component.html
   />
 ```
 
-```typescript
-```
+---
+
+#### Two-way Binding (Filter)
+
+**ngModel**
+
+- [ngModel] - square brackets: property-binding from class to imput in template
+- (ngModel) - parentheses: event-binding sent user data from template to class proerty
+
+1. In order to use ngModel, need to import FormsModule in its parent module.
+
+src\app\app.module.ts
 
 ```typescript
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [BrowserModule, FormsModule], // Imports: external module
+})
+export class AppModule {}
 ```
 
+2. src\app\products\product-list.component.ts
+
 ```typescript
+// Add a class property
+listFilter: string = 'cart';
+```
+
+3. src\app\products\product-list.component.html
+
+```typescript
+<div class="row">
+  <div class="col-md-2">Filter by:</div>
+  <div class="col-md-4">
+    <input type="text" [(ngModel)]="listFilter" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Filtered by: {{ listFilter }}</h4>
+  </div>
+</div>
 ```
 
 ```typescript
@@ -201,3 +237,18 @@ src\app\products\product-list.component.html
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
