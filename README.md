@@ -150,10 +150,39 @@ Structural Directives (starts with asterisk \*)
 
 ---
 
-```typescript
-```
+#### Event Binding
+
+<button (click)='toggleImage()'>
+
+<html-tag (target-event)='template-statement()'>
+
+src\app\products\product-list.component.ts
 
 ```typescript
+export class ProductListComponent {
+  // Properties
+  showImage: boolean = true;
+  // Methods
+  toggleImage(): void {
+    // return type is void here
+    this.showImage = !this.showImage;
+  }
+}
+```
+
+src\app\products\product-list.component.html
+
+```typescript
+  <button class="btn btn-primary" (click)="toggleImage()">
+    {{ showImage ? 'Hide' : 'Show' }}
+    Image
+  </button>
+
+  <img
+    *ngIf="showImage"
+    [src]="product.imageUrl"
+    [title]="product.productName"
+  />
 ```
 
 ```typescript

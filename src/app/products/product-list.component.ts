@@ -9,9 +9,11 @@ import { Component } from '@angular/core';
 
 // Class
 export class ProductListComponent {
+  // Properties
   productHeader: string = 'Product List';
   imageWidth: number = 50;
   imageMargin: number = 2;
+  showImage: boolean = true;
   products: any[] = [
     {
       productId: 1,
@@ -44,4 +46,10 @@ export class ProductListComponent {
       imageUrl: 'assets/images/hammer.png',
     },
   ];
+
+  // Methods
+  toggleImage(): void {
+    // return type is void here
+    this.showImage = !this.showImage;
+  }
 }
