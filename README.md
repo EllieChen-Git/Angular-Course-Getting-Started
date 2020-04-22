@@ -2,32 +2,13 @@
 
 ---
 
-FM (Lukas R - Angular 7)
-
-- Course: https://frontendmasters.com/courses/angular-core/
-- Repo: https://github.com/onehungrymind/angular-core-workshop
-
-- (+) the sample app is a CRUD resources
-- (-) jump right to angular CLI
-
-PS (Deborah - Angular 8)
-
-- Course: https://app.pluralsight.com/library/courses/angular-2-getting-started-update/
-- Repo: https://github.com/DeborahK/Angular-GettingStarted
-
-- (+) start from basic concepts 　& understanding of angular
-- (+) beginner friendly: teaches you every single step of writing a code
-- (-) the sample app is not a CRUD resources
-
----
-
 - **Author: Deborah Kurata**
 - **Course: [Angular: Getting Started](https://app.pluralsight.com/library/courses/angular-2-getting-started-update/table-of-contents) on Pluralsight**
 - **Written Material**:
 - **Topics covered**:
 - **Set up**:
-  - 1. npm i bootstrap font-awesome (install packages doesn't provide access to their stylesheet)
-  - 2. Import the stylesheets in src\styles.css
+  1. npm i bootstrap font-awesome (install packages doesn't provide access to their stylesheet)
+  2. Import the stylesheets in src\styles.css
 
 ```typescript
 @import '~bootstrap/dist/css/bootstrap.min.css';
@@ -41,24 +22,26 @@ PS (Deborah - Angular 8)
 #### Why Angular
 
 - expressive HTML
-- powerful databinding
+- powerful data-binding
 - modular by design
 - built in backend integration
 
+---
+
 #### Intro to Angular
 
-- Services: provide functionalities across different components
+- **Services**: provide functionalities across different components
 
-- Components
+- **Components**
 
   - **Import statement**
   - **Export class**
-    - **Properties**: a property defined a data element that associated with the class,
+    - **Properties**: a property defined a data element that associated with the class.
     - **Methods**
   - **Metadata**
-    - **Decorator**: a function that adds metadata to a class, its members or its method arguments (prefixed with @). a function that passes an object argument
-    - **Directive**: a custom html tag
-    - **Template**: view
+    - **Decorator**: A function that adds metadata to a class, its members or its method arguments (prefixed with @). A function that passes an object argument
+    - **Directive**: A custom html tag.
+    - **Template**: View.
 
 src\app\app.component.ts
 
@@ -70,7 +53,7 @@ import { Component } from '@angular/core';
 @Component({
   // Decorator: @Component({ })
   selector: 'pm-root',
-  // Use 'selector' property the name of the component when used as a directive in HTML
+  // Use 'selector' property as the name of the component when used as a directive in HTML
   // Directive: custom html tags ('pm-root')
   template: `<div>
     <h1>Project Management</h1>
@@ -90,8 +73,8 @@ export class AppComponent {
 
 #### Template
 
-- Inline template: strings (quotes/backticks)
-- Linked template: templateUrl
+- Inline template (template): Strings in quotes/backticks
+- Linked template (templateUrl): Relative path of the file.
 
 ```typescript
 // Inline template
@@ -104,11 +87,13 @@ export class AppComponent {
   templateUrl: './product-list.component.html', // relative path
 ```
 
+---
+
 #### Use Components as Directives
 
-1. Create 'Component 2 Template': src\app\products\product-list.component.html
-2. Create 'Component 2 TS': src\app\products\product-list.component.ts (selector: 'pm-producs')
-3. On 'Component 1 TS' & add 'Component 2 Selector' as a directive to 'Component 1 template'
+1. Create 'Component B Template file': src\app\products\product-list.component.html
+2. Create 'Component B TS file': src\app\products\product-list.component.ts (selector: 'pm-producs')
+3. On 'Component A TS file' & add 'Component B Selector' as a directive to 'Component 1 template'
 
 src\app\app.component.ts
 
@@ -116,12 +101,13 @@ src\app\app.component.ts
 @Component({
   template: `<div>
     <h1>Project Managment</h1>
-    <pm-products></pm-products>  //Added here
+    <pm-products></pm-products>
   </div>`
+  //Added '<pm-products>' here
 })
 ```
 
-4. Declare 'Component 2' on 'Component 1 Module' (remember to also import it on the top)
+4. Declare 'Component B' on 'Component A Module - declarations' (remember to also import it on the top)
 
 ```typescript
 import { ProductListComponent } from './products/product-list.component';
@@ -131,18 +117,38 @@ import { ProductListComponent } from './products/product-list.component';
 })
 ```
 
+---
+
 #### Angular Built-in Directives
 
 Structural Directives (starts with asterisk \*)
 
-- *ngIf (If logic): *ngIf = 'expression'
-  If 'expression' is false, then the element & its children are removed from the DOM
-  If 'expression' is false, then a copy of the element & its children is re-inserted to the DOM
+- **\*ngIf (If logic): \*ngIf = 'expression'**
 
-- \*ngFor (For loops): repeat a portion of the DOM tree
+  - If 'expression' is false, then the element & its children are removed from the DOM.
+  - If 'expression' is true, then a copy of the element & its children is re-inserted to the DOM
+
+- **\*ngFor (For loops): repeat a portion of the DOM tree**
+
+---
+
+#### Property Binding
+
+- Property binding allows us to set a property of an element to the value of a template expression
+
+<img [src]='product.imageUrl'>
+[element property/binding target]='template expression/binding source'
 
 ```typescript
+  <img
+          [src]="product.imageUrl"
+          [title]="product.productName"
+          [style.width.px]="imageWidth"
+          [style.margin.px]="imageMargin"
+        />
 ```
+
+---
 
 ```typescript
 ```
