@@ -4,7 +4,7 @@
 
 - **Author: Deborah Kurata**
 - **Course: [Angular: Getting Started](https://app.pluralsight.com/library/courses/angular-2-getting-started-update/table-of-contents) on Pluralsight**
-- **Written Material**:
+- **GitHub Repo**: https://github.com/DeborahK/Angular-GettingStarted
 - **Topics covered**:
 - **Set up**:
   1. npm i bootstrap font-awesome (install packages doesn't provide access to their stylesheet)
@@ -241,6 +241,42 @@ listFilter: string = 'cart';
 ```typescript
 <td>{{ product.productCode | lowercase }}</td>
 <td>{{ product.price | currency: 'USD':'symbol':'1.2-2' }}</td>
+```
+
+---
+
+#### Data Types & Interfaces
+
+- Every property has a 'type'.
+- Every method has a 'return type'.
+- Every method parameter has a 'type'.
+- Interfaces: custom types.
+
+```typescript
+// interface (lowercase) interfaceName (prefixed with 'I')
+export interface IProduct {
+  productId: number;
+  // propertyName: dataType
+  productName: string;
+  productCode: string;
+  releaseDate: string;
+  price: number;
+  description: string;
+  starRating: number;
+  imageUrl: string;
+}
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
 ```
 
 ```typescript
