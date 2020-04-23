@@ -267,7 +267,16 @@ export interface IProduct {
 }
 ```
 
+---
+
+#### Encapsulating Component Style
+
 ```typescript
+@Component({
+  styleUrls: ['./product-list.component.css'],
+  //styleUrl's': an array
+})
+
 ```
 
 ```typescript
