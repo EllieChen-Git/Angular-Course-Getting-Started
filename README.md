@@ -295,13 +295,51 @@ export class ProductListComponent implements OnInit {
   }
 ```
 
-```typescript
-```
+---
+
+#### Custom Pipes
+
+1. Write custom pipes: src\app\shared\convert-to-spaces.pipe.ts
 
 ```typescript
+// 3) Import Pipe decorator
+import { Pipe, PipeTransform } from '@angular/core';
+
+// 2) Decorate pipe with a pipe decorator
+@Pipe({
+  name: 'convertToSpaces', // 4) Define the name of the pipe used in template
+})
+
+// 1) Export class
+export class ConvertToSpacesPipe implements PipeTransform {
+  // 5) Implements 'PipeTransform' interface
+  transform(value: string, character: string): string {
+    return value.replace(character, ' ');
+  }
+  // 6) 'transform' method is the only required method on 'PipeTransform'
+  // 1st arg: the string to be transformed
+  // 2st arg: the character we'd like to transform to spaces
+  // Return type of 'transform' is 'string'
+}
 ```
 
+2. Use pipes in template: src\app\products\product-list.component.html
+
 ```typescript
+<td>
+  {{ product.productCode | lowercase | convertToSpaces: '-' }}
+</td>
+```
+
+3. Don't forget to import Pipes in the parent module: src\app\app.module.ts
+
+```typescript
+import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
+
+@NgModule({
+  declarations: [AppComponent, ProductListComponent, ConvertToSpacesPipe], // Declaration: so Angular can locate it
+})
+export class AppModule {}
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
