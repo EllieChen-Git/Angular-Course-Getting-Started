@@ -230,6 +230,59 @@ listFilter: string = 'cart';
 </div>
 ```
 
+4. src\app\products\product-list.component.ts
+
+```typescript
+// listFilter: string = 'cart';
+
+  // Change our listFilter property into a 'getter/setter'
+  _listFilter: string; // Backing field to store value
+  get listFilter(): string {
+    // Getter: no parameter, return sth
+    // When data-binding needs the value, it'll call 'gettter' and get teh value
+    return this._listFilter;
+  }
+  set listFilter(value: string) {
+    // Setter: 1 parameter, doesn't return
+    // Every time users change the value, the data-binding calls the 'setter', passing in the changed value.
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter
+      ? this.performFilter(this.listFilter)
+      : this.products;
+    // if filer string is empty, null, undefined, then we return all the products
+  }
+
+  filteredProducts: IProduct[]; // We don't mutate the original products array
+
+   // Methods
+
+  constructor() {
+    this.filteredProducts = this.products;
+    this.listFilter = 'cart';
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase(); // for case-insensitive comparison
+    return this.products.filter(
+      (product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+      // indexOf() returns '-1' if the given element is not present.
+    );
+  }
+```
+
+5. src\app\products\product-list.component.html
+
+```typescript
+  <tr *ngFor="let product of filteredProducts">
+```
+
+```typescript
+```
+
+```typescript
+```
+
 ---
 
 #### Transforming Data with Pipes
@@ -281,6 +334,10 @@ export interface IProduct {
 ---
 
 #### Lifecycle Hooks
+
+- OnInit: Perform component initialisation. Good place to retrieve data from back end service
+- OnChanges: Perform actions after change to input properties
+- OnDestroy: Perform cleanup before Angular destroys the component
 
 ```typescript
 // 2) Imports 'OnInit' interface at the top
@@ -340,6 +397,39 @@ import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
   declarations: [AppComponent, ProductListComponent, ConvertToSpacesPipe], // Declaration: so Angular can locate it
 })
 export class AppModule {}
+```
+
+---
+
+#### Getter and Setter
+
+Getter: Defines a read-only property
+
+- Getters cannot have parameters and must have a return type
+- it's accessed as a property (no parentheses)
+- provide a property whose value can be dynamically computed
+- expose the value to an internal variable
+
+Setter: Defines a write-only property
+
+- Setters must have one and only type parameter and no return type
+- it's accessed as a property (no parentheses)
+- execute code every time a property is modified
+
+```typescript
+// define a backing field (prefixed with _) to retain the set value
+private _listFilter: string;
+
+get listFilter(): string {
+ return this._listFilter
+}
+
+set listFilter(value: string) {
+ this._listFilter = value
+}
+
+// Define the getter & setter as the same name, so we can read and write on the 'listFilter' property
+
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
