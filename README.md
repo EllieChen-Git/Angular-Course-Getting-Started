@@ -276,10 +276,23 @@ export interface IProduct {
   styleUrls: ['./product-list.component.css'],
   //styleUrl's': an array
 })
-
 ```
 
+---
+
+#### Lifecycle Hooks
+
 ```typescript
+// 2) Imports 'OnInit' interface at the top
+import { Component, OnInit } from '@angular/core';
+
+// 1) Implements 'OnInit' interface
+export class ProductListComponent implements OnInit {
+
+// 3) Add 'ngOnInit' method
+  ngOnInit(): void {
+    console.log('OnInit');
+  }
 ```
 
 ```typescript

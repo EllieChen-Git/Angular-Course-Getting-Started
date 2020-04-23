@@ -1,5 +1,5 @@
 // Import
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
 
 // Metadata
@@ -10,7 +10,7 @@ import { IProduct } from './product';
 })
 
 // Class
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   // Properties
   productHeader: string = 'Product List';
   imageWidth: number = 50;
@@ -54,5 +54,9 @@ export class ProductListComponent {
   toggleImage(): void {
     // return type is void here
     this.showImage = !this.showImage;
+  }
+
+  ngOnInit(): void {
+    console.log('OnInit');
   }
 }
