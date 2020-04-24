@@ -28,20 +28,16 @@
 
 ---
 
-#### Intro to Angular
+#### Components
 
-- **Services**: provide functionalities across different components
-
-- **Components**
-
-  - **Import statement**
-  - **Export class**
-    - **Properties**: a property defined a data element that associated with the class.
-    - **Methods**
-  - **Metadata**
-    - **Decorator**: A function that adds metadata to a class, its members or its method arguments (prefixed with @). A function that passes an object argument
-    - **Directive**: A custom html tag.
-    - **Template**: View.
+- **Import statement**
+- **Export class**
+  - **Properties**: a property defined a data element that associated with the class.
+  - **Methods**
+- **Metadata**
+  - **Decorator**: A function that adds metadata to a class, its members or its method arguments (prefixed with @). A function that passes an object argument
+  - **Directive**: A custom html tag.
+  - **Template**: View.
 
 src\app\app.component.ts
 
@@ -55,15 +51,16 @@ import { Component } from '@angular/core';
   selector: 'pm-root',
   // Use 'selector' property as the name of the component when used as a directive in HTML
   // Directive: custom html tags ('pm-root')
-  template: `<div>
-    <h1>Project Management</h1>
-  </div>`,
-}) // Template (view's HTML): any valid HTML within backticks
+  templateUrl: './product-list.component.html',
+  // Linked template (view's HTML): relative path
+  styleUrls: ['./product-list.component.css'],
+  //styleUrl's': an array with relative path
+})
 
 // Class: Pascal Casing & append 'Component' to the name
 export class AppComponent {
-  pageTitle: string = 'Page Title';
   // Data in Property: propertyName(camelCAase): dataType = "defaultValue"
+  pageTitle: string = 'Page Title';
 
   // Methods: Define our logic here
 }
@@ -77,7 +74,7 @@ export class AppComponent {
 - Linked template (templateUrl): Relative path of the file.
 
 ```typescript
-// Inline template
+// Inline template: any valid HTML within backticks
  template: `<div>
     <h1>Project Managment</h1>
     <p>1st component</p>
@@ -277,12 +274,6 @@ listFilter: string = 'cart';
   <tr *ngFor="let product of filteredProducts">
 ```
 
-```typescript
-```
-
-```typescript
-```
-
 ---
 
 #### Transforming Data with Pipes
@@ -294,62 +285,6 @@ listFilter: string = 'cart';
 ```typescript
 <td>{{ product.productCode | lowercase }}</td>
 <td>{{ product.price | currency: 'USD':'symbol':'1.2-2' }}</td>
-```
-
----
-
-#### Data Types & Interfaces
-
-- Every property has a 'type'.
-- Every method has a 'return type'.
-- Every method parameter has a 'type'.
-- Interfaces: custom types.
-
-```typescript
-// interface (lowercase) interfaceName (prefixed with 'I')
-export interface IProduct {
-  productId: number;
-  // propertyName: dataType
-  productName: string;
-  productCode: string;
-  releaseDate: string;
-  price: number;
-  description: string;
-  starRating: number;
-  imageUrl: string;
-}
-```
-
----
-
-#### Encapsulating Component Style
-
-```typescript
-@Component({
-  styleUrls: ['./product-list.component.css'],
-  //styleUrl's': an array
-})
-```
-
----
-
-#### Lifecycle Hooks
-
-- OnInit: Perform component initialisation. Good place to retrieve data from back end service
-- OnChanges: Perform actions after change to input properties
-- OnDestroy: Perform cleanup before Angular destroys the component
-
-```typescript
-// 2) Imports 'OnInit' interface at the top
-import { Component, OnInit } from '@angular/core';
-
-// 1) Implements 'OnInit' interface
-export class ProductListComponent implements OnInit {
-
-// 3) Add 'ngOnInit' method
-  ngOnInit(): void {
-    console.log('OnInit');
-  }
 ```
 
 ---
@@ -401,6 +336,51 @@ export class AppModule {}
 
 ---
 
+#### Data Types & Interfaces
+
+- Every property has a 'type'.
+- Every method has a 'return type'.
+- Every method parameter has a 'type'.
+- Interfaces: custom types.
+
+```typescript
+// interface (lowercase) interfaceName (prefixed with 'I')
+export interface IProduct {
+  productId: number;
+  // propertyName: dataType
+  productName: string;
+  productCode: string;
+  releaseDate: string;
+  price: number;
+  description: string;
+  starRating: number;
+  imageUrl: string;
+}
+```
+
+---
+
+#### Lifecycle Hooks
+
+- OnInit: Perform component initialisation. Good place to retrieve data from back end service
+- OnChanges: Perform actions after change to input properties
+- OnDestroy: Perform cleanup before Angular destroys the component
+
+```typescript
+// 2) Imports 'OnInit' interface at the top
+import { Component, OnInit } from '@angular/core';
+
+// 1) Implements 'OnInit' interface
+export class ProductListComponent implements OnInit {
+
+// 3) Add 'ngOnInit' method
+  ngOnInit(): void {
+    console.log('OnInit');
+  }
+```
+
+---
+
 #### Getter and Setter
 
 Getter: Defines a read-only property
@@ -430,6 +410,88 @@ set listFilter(value: string) {
 
 // Define the getter & setter as the same name, so we can read and write on the 'listFilter' property
 
+```
+
+---
+
+#### Nested Components
+
+1. Create the nested component
+
+- src\app\shared\star.component.ts
+- src\app\shared\star.component.css
+- src\app\shared\star.component.html
+
+2. Use the nested component as a directive in the container component's template
+
+- src\app\products\product-list.component.html
+
+```html
+<!-- <td>{{ product.starRating }}</td> -->
+<td>
+  <pm-star></pm-star>
+</td>
+```
+
+3. Declare nested component in the container component's parent module
+
+- src\app\app.module.ts
+
+```typescript
+import { StarComponent } from './shared/star.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ProductListComponent,
+    ConvertToSpacesPipe,
+    StarComponent,
+  ]
+})
+```
+
+#### Passing data to nested component (@Input())
+
+- src\app\shared\star.component.ts
+
+```typescript
+import { Component, OnChanges, Input } from '@angular/core';
+
+export class StarComponent implements OnChanges {
+  @Input() rating: number; // @Input(): In order to expose its 'rating' property to it's container component
+  starWidth: number;
+
+  ngOnChanges(): void {
+    this.starWidth = (this.rating * 75) / 5;
+  }
+}
+```
+
+- src\app\products\product-list.component.html
+
+```html
+<!-- <td>{{ product.starRating }}</td> -->
+<td><pm-star [rating]="product.starRating"></pm-star></td>
+```
+
+#### Passing data from a Component - @Raising an Event (@Output())
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
