@@ -450,9 +450,18 @@ import { StarComponent } from './shared/star.component';
 })
 ```
 
-#### Passing data to nested component (@Input())
+---
 
-- src\app\shared\star.component.ts
+#### '@Input() - property binding' vs '@Output() - event binding'
+
+- Use @Input() decorator in a component when it needs to input data from its container component.
+- Use @Output() decorator in a component when it needs to raise events (& optionally pass info back) to its container component with EvenEmitter.
+
+#### Input data from Container = Passing data to nested component (@Input())
+
+- If a nested component wants to receive Input from its container, it must expose a property to that container.
+
+- src\app\shared\star.component.ts [Nested Component]
 
 ```typescript
 import { Component, OnChanges, Input } from '@angular/core';
@@ -467,7 +476,7 @@ export class StarComponent implements OnChanges {
 }
 ```
 
-- src\app\products\product-list.component.html
+- src\app\products\product-list.component.html [Container Component - property binding]
 
 ```html
 <!-- <td>{{ product.starRating }}</td> -->
@@ -476,16 +485,54 @@ export class StarComponent implements OnChanges {
 
 #### Passing data from a Component - @Raising an Event (@Output())
 
-```typescript
+- src\app\shared\star.component.html [Nested Component]
+
+```html
+<div
+  class="crop"
+  [style.width.px]="starWidth"
+  [title]="rating"
+  (click)="onClick()"
+></div>
 ```
 
-```typescript
-```
+- src\app\shared\star.component.ts [Nested Component]
 
 ```typescript
+// Initial
+  onClick(): void {
+    console.log(`The rating ${this.rating} was clicked`);
+  }
+// Subsequent
+import {
+  EventEmitter,
+  Output,
+} from '@angular/core';
+
+export class StarComponent implements OnChanges {
+  @Output() ratingClicked: EventEmitter<string> = new EventEmitter<string>();
+
+  onClick(): void {
+    this.ratingClicked.emit(`The rating ${this.rating} was clicked`);
+  }
+}
 ```
 
+- src\app\products\product-list.component.html [Container Component - event binding]
+
+```html
+<pm-star
+  [rating]="product.starRating"
+  (ratingClicked)="onRatingClicked($event)"
+></pm-star>
+```
+
+- src\app\products\product-list.component.ts [Container Component - event binding]
+
 ```typescript
+  onRatingClicked(message: string) {
+    this.pageTitle = 'Product List' + message;
+  }
 ```
 
 ```typescript

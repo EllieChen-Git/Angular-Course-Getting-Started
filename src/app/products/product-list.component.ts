@@ -12,7 +12,7 @@ import { IProduct } from './product';
 // Class
 export class ProductListComponent implements OnInit {
   // Properties
-  productHeader: string = 'Product List';
+  pageTitle: string = 'Product List';
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = true;
@@ -75,6 +75,10 @@ export class ProductListComponent implements OnInit {
   constructor() {
     this.filteredProducts = this.products;
     this.listFilter = 'cart';
+  }
+
+  onRatingClicked(message: string) {
+    this.pageTitle = 'Product List' + message;
   }
 
   performFilter(filterBy: string): IProduct[] {
