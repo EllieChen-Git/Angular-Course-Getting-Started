@@ -1,19 +1,18 @@
-# Angular Course: Angular: Getting Started
+# Angular Course: Angular-Getting-Started
 
 ---
 
 - **Author: Deborah Kurata**
 - **Course: [Angular: Getting Started](https://app.pluralsight.com/library/courses/angular-2-getting-started-update/table-of-contents) on Pluralsight**
 - **GitHub Repo**: https://github.com/DeborahK/Angular-GettingStarted
-- **Topics covered**:
+
 - **Set up**:
   1. npm i bootstrap font-awesome (install packages doesn't provide access to their stylesheet)
   2. Import the stylesheets in src\styles.css
-
-```typescript
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~font-awesome/css/font-awesome.min.css';
-```
+  ```typescript
+  @import '~bootstrap/dist/css/bootstrap.min.css';
+  @import '~font-awesome/css/font-awesome.min.css';
+  ```
 
 <!-- ![{screenshot}](./docs/{screenshot}.JPG) -->
 
@@ -35,7 +34,7 @@
   - **Properties**: a property defined a data element that associated with the class.
   - **Methods**
 - **Metadata**
-  - **Decorator**: A function that adds metadata to a class, its members or its method arguments (prefixed with @). A function that passes an object argument
+  - **Decorator**: A function (prefixed with @ and passes an 'object' argument) that adds metadata to a class, its members or its method arguments.
   - **Directive**: A custom html tag.
   - **Template**: View.
 
@@ -585,11 +584,7 @@ export class ProductListComponent {
 }
 ```
 
----
-
-####
-
-```typescript
+<!-- ```typescript
 ```
 
 ```typescript
@@ -602,7 +597,7 @@ export class ProductListComponent {
 ```
 
 ```typescript
-```
+``` -->
 
 ©2020 Ellie Chen - All Rights Reserved.
 
