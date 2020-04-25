@@ -535,6 +535,69 @@ export class StarComponent implements OnChanges {
   }
 ```
 
+---
+
+#### Services
+
+A service: a class with a focused purpose. Service is injected when a component is instantiated.
+
+- Implement functionality that is independent from any particular component
+- To share data or logic across components
+- Encapsulate external interactions such as data access
+
+**Dependency injection**: is a coding pattern in which a class receives the instances of objects it needs, called its dependencies, from an external source (the Angular injector) rather than creating them itself.
+
+1. Build a service: src\app\products\product.service.ts
+
+```typescript
+import { Injectable } from '@angular/core';
+import { IProduct } from './product';
+
+@Injectable({ providedIn: 'root' })
+export class ProductService {
+  getProducts(): IProduct[] {
+    return;
+  }
+}
+```
+
+2. Inject a service: src\app\products\product-list.component.ts
+
+```typescript
+import { ProductService } from './product.service';
+
+// longhand
+export class ProductListComponent {
+  private _productService;
+  constructor(productService: ProductService) {
+    this._productService = productService;
+  }
+}
+
+// shorthand
+export class ProductListComponent {
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.products = this.productService.getProducts();
+    this.filteredProducts = this.products;
+  }
+}
+```
+
+---
+
+####
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
 ```typescript
 ```
 
