@@ -626,6 +626,13 @@ import { Observable } from 'rxjs';
 export class ProductService {
   private productUrl = 'api/products/products.json';
   constructor(private http: HttpClient) {}
+
+  getProducts(): Observable<IProduct[]> {
+    // This method returns an 'observable' with an 'Iproduct[] array' (type generics)
+    return this.http.get<IProduct[]>(this.productUrl);
+    // Map our returned response to the foramt of an 'Iproduct[] array'
+  }
+}
 ```
 
 - In order to use local JSON file as our API endpoint, need to define the location at 'angular.json'
@@ -638,10 +645,35 @@ export class ProductService {
           ],
 ```
 
+3. Exception handling
+
 ```typescript
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 ```
 
 ```typescript
+export class ProductService {
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(this.productUrl).pipe(
+      tap((data) => console.log('All: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      // client-side/connection errors
+      errorMessage = `An error occurs: ${err.error.message}`;
+    } else {
+      // backend returns an unsuccessful response code
+      errorMessage = `Server returns code: ${err.status}, error message is ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+}
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
