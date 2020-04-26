@@ -584,7 +584,58 @@ export class ProductListComponent {
 }
 ```
 
-<!-- ```typescript
+---
+
+#### Oberservables
+
+- Observables help us manage asynchronous data, such as data coming from a back end service.
+- Observables treat events as a collection. We can think of an observable as an array whose items arrive asynchronously over time.
+- A method in our code can subscribe to an observable to receive asynchronous notifications as new data arrives. The method can then react as data is pushed to it.
+- The method is notified when there is no more data or when an error occurs.
+- Observables are used within Angular itself, including Angular's event system and it's HTTP client service.
+- Observables allow us to manipulate sets of events with operators
+
+#### Operators
+
+- Operators are methods on observables that compose new observables.
+  Each operator transforms the source observable in some way.
+- Operators do not wait for all of the values and process them at once. Rather, operators on observables process each value as it is emitted.
+- Some examples of operators include map, filter, take, and merge.
+
+---
+
+#### Sending HTTP requests
+
+1. Register HttpClientModule: src\app\app.module.ts
+
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  imports: [BrowserModule, FormsModule, HttpClientModule], // Imports: external module
+})
+export class AppModule {}
+```
+
+2. Injest HttpClient service to our service: src\app\products\product.service.ts
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export class ProductService {
+  private productUrl = 'api/products/products.json';
+  constructor(private http: HttpClient) {}
+```
+
+- In order to use local JSON file as our API endpoint, need to define the location at 'angular.json'
+
+```typescript
+"assets": [
+            "src/favicon.ico",
+            "src/assets",
+            "src/api"
+          ],
 ```
 
 ```typescript
@@ -592,12 +643,6 @@ export class ProductListComponent {
 
 ```typescript
 ```
-
-```typescript
-```
-
-```typescript
-``` -->
 
 ©2020 Ellie Chen - All Rights Reserved.
 
