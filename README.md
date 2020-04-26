@@ -586,13 +586,13 @@ export class ProductListComponent {
 
 ---
 
-#### Oberservables
+#### Observables
 
-- Observables help us manage asynchronous data, such as data coming from a back end service.
+- Observables help us manage asynchronous data, such as data coming from a back-end service.
 - Observables treat events as a collection. We can think of an observable as an array whose items arrive asynchronously over time.
 - A method in our code can subscribe to an observable to receive asynchronous notifications as new data arrives. The method can then react as data is pushed to it.
 - The method is notified when there is no more data or when an error occurs.
-- Observables are used within Angular itself, including Angular's event system and it's HTTP client service.
+- Observables are used within Angular itself, including Angular's event system and its HTTP client service.
 - Observables allow us to manipulate sets of events with operators
 
 #### Operators
@@ -617,7 +617,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class AppModule {}
 ```
 
-2. Injest HttpClient service to our service: src\app\products\product.service.ts
+2. Inject HttpClient service to our service: src\app\products\product.service.ts
 
 ```typescript
 import { HttpClient } from '@angular/common/http';
@@ -635,7 +635,7 @@ export class ProductService {
 }
 ```
 
-- In order to use local JSON file as our API endpoint, need to define the location at 'angular.json'
+- To use local JSON file as our API endpoint, need to define the location at 'angular.json'
 
 ```typescript
 "assets": [
@@ -674,6 +674,50 @@ export class ProductService {
     return throwError(errorMessage);
   }
 }
+```
+
+#### Subscription to observables
+
+Lazy: an observable doesn't emit values until we subscribe.
+
+Subscribe method takes an optional argument, which is an observer object ( the observer object observes the stream and responds to three types of notifications, next, error, and complete).
+
+The subscribe function returns a subscription. We use that subscription to call unsubscribe and cancel the subscription, if needed.
+
+- 1st handler function 'next': it processes the next emitted value. Since observables can handle multiple values over time, the next function is called for each value the observable emits.
+- 2nd handler function 'error': it executes if there is an error.
+
+- 3rd handler function 'complete' (rarely used in Http requests): In some cases, we want to know when the observable completes, so observables provide a third handler that is executed on completion.
+
+src\app\products\product-list.component.ts
+
+```typescript
+// Properties
+errorMessage: string;
+
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products = products;
+        this.filteredProducts = this.products;
+        // Moved up here due to async sequences
+      },
+      error: (err) => (this.errorMessage = err),
+    });
+    // this.filteredProducts = this.products;
+  }
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
