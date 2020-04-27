@@ -744,10 +744,31 @@ errorMessage: string;
 })
 ```
 
-```typescript
+---
+
+#### Handling undefined
+
+- Safe Navigation Operators
+
+1. Can't be used in NgModel
+2. Might become tedious
+
+```html
+<div class="card">
+  <div class="card-header">
+    {{pageTitle + ": " product?.productName}}
+  </div>
+</div>
 ```
 
-```typescript
+- Use 'ngIf'
+
+```html
+<div class="card">
+  <div class="card-header" *ngIf="product">
+    {{pageTitle + ": " product.productName}}
+  </div>
+</div>
 ```
 
 ```typescript
