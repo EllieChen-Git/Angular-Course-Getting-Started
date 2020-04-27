@@ -9,13 +9,16 @@ import { StarComponent } from './shared/star.component';
 
 // @NgModule decorator
 @NgModule({
+  // Declaration: so Angular can locate it
   declarations: [
     AppComponent,
     ProductListComponent,
     ConvertToSpacesPipe,
     StarComponent,
-  ], // Declaration: so Angular can locate it
-  imports: [BrowserModule, FormsModule, HttpClientModule], // Imports: external module
-  bootstrap: [AppComponent], // Bootstrap: the starting component of our app
+  ],
+  // Imports: external module
+  imports: [BrowserModule, FormsModule, HttpClientModule],
+  // Bootstrap Array: the starting component of our app
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

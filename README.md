@@ -708,7 +708,40 @@ errorMessage: string;
   }
 ```
 
+---
+
+#### Modules
+
+- **Bootstrap Array**: the starting component of our app
+  - Every app must bootstrap at least one component, the root app component
+  - Only used in AppModule (root application module)
+- **Declarations Arrays**: define the 'components, diretives and pipes' that belong to this Angular module (private by default, i.e. only accessible to the components declared in the same module).
+  - Every component, diretive and pipe we create must belong to 'one and only one' Angular module.
+  - The Angular module provides the template resolution environment for its component templates.
+- **Export Arrays**: Allows us to share components, directives and pipes to anthoer module.
+  - Never export a service.
+- **Import Arrays**: import @angular module, 3rd party module (e.g. Material UI), the modules created by us, route module.
+  - Importing a module makes available any exported components, directives, and pipes from that module.
+  - Importing a module does not provide access to its imported modules.
+- **Providers Arrays**
+  - Any service provider added to the providers array is registered at the root of the application, so the service is available to be injected into any class in the application. Say, for example, we have a future module called
+  - Don't add services to the providers array of a shared module.
+
 ```typescript
+// @NgModule decorator
+@NgModule({
+  // Declaration: so Angular can locate it
+  declarations: [
+    AppComponent,
+    ProductListComponent,
+    ConvertToSpacesPipe,
+    StarComponent,
+  ],
+  // Imports: external module
+  imports: [BrowserModule, FormsModule, HttpClientModule],
+  // Bootstrap Array: the starting component of our app
+  bootstrap: [AppComponent],
+})
 ```
 
 ```typescript
