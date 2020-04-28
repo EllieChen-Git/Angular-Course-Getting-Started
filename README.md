@@ -771,6 +771,83 @@ errorMessage: string;
 </div>
 ```
 
+---
+
+#### Navigation & Routing
+
+1. index.html
+
+```html
+<head>
+  <base href="/" />
+</head>
+```
+
+2. src\app\app.module.ts
+
+```typescript
+import { RouterModule } from '@angular/router';
+
+@NgModule({
+  imports: [RouterModule.forRoot([
+      { path: 'products', component: ProductListComponent },
+      { path: 'products/:id', component: ProductDetailComponent },
+      { path: 'welcome', component: WelcomeComponent },
+      // Set a default route
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      // Wildcard route: Usually use to display a 404 Page '{ path: '**', component: PageNotFoundComponent}
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+    ]),
+})
+```
+
+3. Remove selector from src\app\products\product-list.component.ts
+
+```typescript
+// selector: 'pm-products',
+```
+
+4. Create nav at src\app\app.component.ts
+
+```html
+@Component({ template: `
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand">{{ pageTitle }}</a>
+  <ul class="nav nav-pills">
+    <li>
+      <a class="nav-link" [routerLink]="['/welcome']">Home</a>
+    </li>
+    <li>
+      <a class="nav-link" [routerLink]="['/products']">Product List</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <!-- Where we display our view -->
+  <router-outlet></router-outlet>
+</div>
+` })
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
+```typescript
+```
+
 ```typescript
 ```
 

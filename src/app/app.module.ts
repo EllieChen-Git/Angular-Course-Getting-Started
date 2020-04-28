@@ -8,6 +8,7 @@ import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
 import { StarComponent } from './shared/star.component';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
+import { RouterModule } from '@angular/router';
 
 // @NgModule decorator
 @NgModule({
@@ -21,7 +22,20 @@ import { WelcomeComponent } from './home/welcome.component';
     WelcomeComponent,
   ],
   // Imports: external module
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path: 'products', component: ProductListComponent },
+      { path: 'products/:id', component: ProductDetailComponent },
+      { path: 'welcome', component: WelcomeComponent },
+      // Set a default route
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      // Wildcard route: Usually use to display a 404 Page '{ path: '**', component: PageNotFoundComponent}
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+    ]),
+  ],
   // Bootstrap Array: the starting component of our app
   bootstrap: [AppComponent],
 })

@@ -5,7 +5,7 @@ import { ProductService } from './product.service';
 
 // Metadata
 @Component({
-  selector: 'pm-products',
+  // selector: 'pm-products',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
