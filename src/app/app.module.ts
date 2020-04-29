@@ -9,7 +9,7 @@ import { ProductModule } from './products/product.module';
 // @NgModule decorator
 @NgModule({
   // Declaration: so Angular can locate it
-  declarations: [AppComponent, WelcomeComponent],
+  declarations: [AppComponent, WelcomeComponent], // root componenet & welcome component
   // Imports: external module
   imports: [
     BrowserModule,
@@ -19,7 +19,7 @@ import { ProductModule } from './products/product.module';
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
-    ProductModule,
+    ProductModule, // Import 'feature module'
   ],
   // Bootstrap Array: the starting component of our app
   bootstrap: [AppComponent],

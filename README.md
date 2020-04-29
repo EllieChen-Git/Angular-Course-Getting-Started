@@ -1022,10 +1022,70 @@ import { ProductDetailGuard } from './product-detail.guard';
 })
 ```
 
-```typescript
-```
+---
+
+#### Shared module
+
+1. CLI command
 
 ```typescript
+ng g m shared/shared --flat -m products/product.module
+// --flat: no folder
+// -m: import module in module
+```
+
+2. Add required componenents/modules: src\app\shared\shared.module.ts
+
+```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StarComponent } from './star.component';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [StarComponent],
+  imports: [CommonModule],
+  exports: [StarComponent, CommonModule, FormsModule],
+})
+export class SharedModule {}
+```
+
+3. Remove unnecessary components/modules: src\app\products\product.module.ts
+
+```typescript
+import { NgModule } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { StarComponent } from '../shared/star.component';
+import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
+import { ProductDetailComponent } from './product-detail.component';
+import { ProductListComponent } from './product-list.component';
+// import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { ProductDetailGuard } from './product-detail.guard';
+import { SharedModule } from '../shared/shared.module';
+
+@NgModule({
+  declarations: [
+    ProductListComponent,
+    ProductDetailComponent,
+    ConvertToSpacesPipe,
+    // StarComponent,
+  ],
+  imports: [
+    // CommonModule,
+    // FormsModule,
+    RouterModule.forChild([
+      { path: 'products', component: ProductListComponent },
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent,
+      },
+    ]),
+    SharedModule, // Auto added by CLI command
+  ],
+})
+export class ProductModule {}
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
