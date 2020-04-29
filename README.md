@@ -773,7 +773,7 @@ errorMessage: string;
 
 ---
 
-#### Navigation & Routing
+#### Basic Navigation & Routing
 
 1. index.html
 
@@ -830,25 +830,132 @@ import { RouterModule } from '@angular/router';
 ` })
 ```
 
-```typescript
+---
+
+#### Pass params to routes
+
+src\app\products\product-list.component.html
+
+```html
+<a [routerLink]="['/products', product.productId]">{{ product.productName }}</a>
+<!-- <a [routerLink]="['/path', params]" -->
 ```
 
-```typescript
-```
+src\app\products\product-detail.component.ts
 
 ```typescript
+import { ActivatedRoute } from '@angular/router';
+
+export class ProductDetailComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    let id = +this.route.snapshot.paramMap.get('id');
+    // '+' is a JS shortcut to covert strings into numbers
+    this.pageTitle += `: ${id}`;
+    this.product = {
+      productId: id,
+      // temp hardcoded below
+      productName: 'Leaf Rake',
+      productCode: 'GDN-0011',
+      releaseDate: 'March 19, 2019',
+      description: 'Leaf rake with 48-inch wooden handle.',
+      price: 19.95,
+      starRating: 3.2,
+      imageUrl: 'assets/images/leaf_rake.png',
+    };
+  }
+}
 ```
 
-```typescript
-```
+---
+
+#### Activate routes with code (Back button)
+
+src\app\products\product-detail.component.ts
 
 ```typescript
+import { Router } from '@angular/router';
+
+export class ProductDetailComponent implements OnInit {
+  constructor(private router: Router) {}
+
+  onBack(): void {
+    this.router.navigate(['/products']);
+  }
+}
 ```
 
-```typescript
+src\app\products\product-detail.component.html
+
+```html
+<button (click)="onBack()">
+  Back
+</button>
 ```
 
+---
+
+#### Protecting routes with guards (to make sure id passed in is valid)
+
+Use route guards any time you want to:
+
+- prevent access to a route
+- confirm navigation away from a route
+- preload data for a route
+
+1. CLI command
+
 ```typescript
+ng g g products/product-detail
+// can select guard types in terminal after this command
+```
+
+2. src\app\products\product-detail.guard.ts
+
+```typescript
+import { Router } from '@angular/router';
+export class ProductDetailGuard implements CanActivate {
+  constructor(private router: Router) {}
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    // url: products/10
+    //        [0]  /[1](id)
+    // Use '+' to convert to number
+    const id = +next.url[1].path;
+    // if result number is NaN or smaller than 1, then we put an alert
+    if (isNaN(id) || id < 1) {
+      alert('Invalid product Id');
+      this.router.navigate(['/products']);
+      return false;
+    }
+    return true;
+  }
+}
+```
+
+src\app\app.module.ts
+
+```typescript
+import { ProductDetailGuard } from './products/product-detail.guard';
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot([
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent,
+      },
+    ]),
+  ],
+})
 ```
 
 ©2020 Ellie Chen - All Rights Reserved.
