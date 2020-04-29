@@ -958,11 +958,78 @@ import { ProductDetailGuard } from './products/product-detail.guard';
 })
 ```
 
+---
+
+#### Feature module
+
+1. CLI command
+
+```typescript
+ng g m products/product --flat -m app
+// --flat: no folder
+// -m: import module in module
+```
+
+2. src\app\products\product.module.ts
+
+```typescript
+// Import required components/pipes
+import { StarComponent } from '../shared/star.component';
+import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
+import { ProductDetailComponent } from './product-detail.component';
+import { ProductListComponent } from './product-list.component';
+// Import required modules
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+// Import Guard for the routes
+import { ProductDetailGuard } from './product-detail.guard';
+
+@NgModule({
+  declarations: [
+    ProductListComponent,
+    ProductDetailComponent,
+    ConvertToSpacesPipe,
+    StarComponent,
+  ],
+  // We use 'RouterModule.forChild' here
+   imports: [CommonModule, FormsModule, RouterModule.forChild([
+      { path: 'products', component: ProductListComponent },
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent,
+      },
+    ]),
+  ],
+})
+```
+
+3. src\app\app.module.ts
+
+- Remember to remove the above 4 components/pipes
+- Remember to remove the FormsModule
+- Move products-related routes to product.module.ts (only keep general routes here)
+
+```typescript
+@NgModule({
+  declarations: [AppComponent, WelcomeComponent],
+  imports: [
+  RouterModule.forRoot([
+    { path: 'welcome', component: WelcomeComponent },
+    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+    { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+  ]),
+})
+```
+
+```typescript
+```
+
+```typescript
+```
+
 ©2020 Ellie Chen - All Rights Reserved.
 
-<!-- ```typescript
-```
-
 ```typescript
 ```
 
@@ -973,4 +1040,7 @@ import { ProductDetailGuard } from './products/product-detail.guard';
 ```
 
 ```typescript
-``` -->
+```
+
+```typescript
+```
